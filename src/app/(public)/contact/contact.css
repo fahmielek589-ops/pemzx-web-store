@@ -1,0 +1,35 @@
+.contact-page {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.contact-page__intro {
+  position: sticky;
+  top: 100px;
+}
+
+.contact-page__detail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.contact-page__detail svg {
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .contact-page {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .contact-page__intro {
+    position: static;
+  }
+}

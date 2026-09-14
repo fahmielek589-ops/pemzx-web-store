@@ -1,0 +1,50 @@
+.login-page {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.login-page__visual {
+  position: relative;
+  flex-basis: 55%;
+  min-height: 100vh;
+}
+
+.login-page__panel {
+  position: relative;
+  flex-basis: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 48px 64px;
+  background: radial-gradient(120% 100% at 0% 0%, #060a0b 0%, var(--bg-primary) 55%);
+}
+
+/* D. "kedua sisi harus terasa menyatu" — panel background picks up the
+   visual's gradient-to-form overlay rather than a hard vertical seam. */
+
+@media (max-width: 1024px) {
+  .login-page__panel {
+    padding: 40px 48px;
+  }
+}
+
+/* BJ. Mobile: stacked, visual on top ~35-40vh, form below. */
+@media (max-width: 767px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-page__visual {
+    flex-basis: auto;
+    height: 38vh;
+    min-height: 260px;
+  }
+
+  .login-page__panel {
+    flex-basis: auto;
+    flex: 1;
+    padding: 32px 24px 48px;
+    justify-content: flex-start;
+  }
+}

@@ -1,0 +1,27 @@
+.contact-cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding: 48px;
+  background: var(--card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.contact-cta__inner .section__heading,
+.contact-cta__inner .section__subheading {
+  margin-bottom: 0;
+}
+
+.contact-cta .btn {
+  text-decoration: none;
+  gap: 8px;
+}
+
+@media (max-width: 640px) {
+  .contact-cta__inner {
+    padding: 32px 24px;
+  }
+}

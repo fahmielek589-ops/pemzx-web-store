@@ -1,0 +1,17 @@
+.admin-shell {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.admin-shell__main {
+  margin-left: 240px;
+  padding: 32px 40px 64px;
+  min-height: 100vh;
+}
+
+@media (max-width: 1023px) {
+  .admin-shell__main {
+    margin-left: 0;
+    padding: 80px 20px 48px;
+  }
+}

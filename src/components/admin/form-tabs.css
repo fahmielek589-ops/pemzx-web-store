@@ -1,0 +1,46 @@
+.form-tabs__nav {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.form-tabs__tab {
+  padding: 10px 4px;
+  margin-right: 20px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-out-smooth),
+    border-color var(--duration-fast) var(--ease-out-smooth);
+}
+
+.form-tabs__tab:hover {
+  color: var(--text-primary);
+}
+
+.form-tabs__tab--active {
+  color: var(--cyan);
+  border-bottom-color: var(--cyan);
+}
+
+.form-tabs__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field__hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 4px 0 0;
+}
+
+input[type="file"] {
+  color: var(--text-muted);
+  font-size: 13px;
+}

@@ -1,0 +1,135 @@
+.projects-empty {
+  margin-top: 40px;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.projects-full-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.project-full-card {
+  background: var(--card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--duration-base) var(--ease-out-smooth);
+}
+
+.project-full-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.project-full-card__thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--surface);
+}
+
+.project-full-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-full-card__thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0d1113 0%, #171d20 100%);
+}
+
+.project-full-card__featured-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(3, 5, 6, 0.75);
+  border: 1px solid rgba(0, 217, 245, 0.35);
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+.project-full-card__body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-full-card__body h2 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.project-full-card__body p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.project-full-card__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.project-full-card__tech span {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border-input);
+  color: var(--text-muted);
+}
+
+.project-full-card__links {
+  display: flex;
+  gap: 18px;
+  margin-top: 4px;
+}
+
+.project-full-card__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out-smooth);
+}
+
+.project-full-card__links a:hover {
+  color: var(--cyan);
+}
+
+.video-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+
+@media (max-width: 900px) {
+  .projects-full-grid {
+    grid-template-columns: 1fr;
+  }
+  .video-showcase-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .video-showcase-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,174 @@
+// ============================================================
+// PEMZX — Database Schema
+// ============================================================
+// Postgres, designed to work with Supabase / Neon / Railway.
+// Run `npm run db:push` (prototyping) or `npm run db:migrate`
+// (versioned migrations) after setting DATABASE_URL in .env.
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum ProductStatus {
+  DRAFT
+  PUBLISHED
+  OUT_OF_STOCK
+}
+
+enum MessageStatus {
+  UNREAD
+  READ
+  ARCHIVED
+}
+
+// A single ADMIN account is expected (see scripts/seed-admin.ts),
+// but the model supports more than one if ever needed.
+model User {
+  id            String     @id @default(cuid())
+  email         String     @unique
+  passwordHash  String
+  name          String     @default("Pemzx")
+  role          Role       @default(ADMIN)
+  status        UserStatus @default(ACTIVE)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  lastLoginAt   DateTime?
+
+  sessions      Session[]
+  loginAttempts LoginAttempt[]
+
+  @@map("users")
+}
+
+// Server-side session store. The cookie only ever holds an
+// opaque random token (see src/lib/auth.ts) — never the user id,
+// role, or any claim the client could forge.
+model Session {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userAgent String?
+  ipAddress String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+// Tracks login attempts per identifier (email + IP) so the
+// login route can enforce rate limiting server-side.
+model LoginAttempt {
+  id         String   @id @default(cuid())
+  identifier String
+  success    Boolean
+  ipAddress  String?
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt  DateTime @default(now())
+
+  @@index([identifier, createdAt])
+  @@map("login_attempts")
+}
+
+model Video {
+  id           String        @id @default(cuid())
+  title        String
+  description  String        @db.Text
+  videoUrl     String
+  thumbnailUrl String?
+  category     String        @default("General")
+  status       ContentStatus @default(DRAFT)
+  featured     Boolean       @default(false)
+  views        Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([status, featured])
+  @@map("videos")
+}
+
+model Product {
+  id            String        @id @default(cuid())
+  name          String
+  slug          String        @unique
+  description   String        @db.Text
+  price         Int // whole IDR (rupiah) — no subunit, matches the admin form and product card
+  comparePrice  Int?
+  imageUrl      String?
+  gallery       String[]      @default([])
+  category      String        @default("General")
+  stock         Int           @default(0)
+  isDigital     Boolean       @default(false)
+  status        ProductStatus @default(DRAFT)
+  featured      Boolean       @default(false)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([status, featured])
+  @@map("products")
+}
+
+model Project {
+  id           String        @id @default(cuid())
+  title        String
+  description  String        @db.Text
+  imageUrl     String?
+  technologies String[]      @default([])
+  githubUrl    String?
+  liveUrl      String?
+  status       ContentStatus @default(DRAFT)
+  featured     Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([status, featured])
+  @@map("projects")
+}
+
+model Message {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String        @db.Text
+  status    MessageStatus @default(UNREAD)
+  createdAt DateTime      @default(now())
+
+  @@index([status])
+  @@map("messages")
+}
+
+model SiteSettings {
+  id              String   @id @default("singleton")
+  siteTitle       String   @default("Pemzx — Developer Portfolio")
+  siteDescription String   @default("Pemzx is a developer focused on building modern, responsive and high-performance digital experiences.")
+  githubUrl       String?
+  linkedinUrl     String?
+  instagramUrl    String?
+  xUrl            String?
+  updatedAt       DateTime @updatedAt
+
+  @@map("site_settings")
+}
