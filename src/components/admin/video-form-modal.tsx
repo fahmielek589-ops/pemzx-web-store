@@ -28,12 +28,7 @@ const EMPTY_VALUES: VideoFormValues = {
   featured: false,
 };
 
-interface VideoFormModalProps {
-  open: boolean;
-  onClose: () => void;
-  onSaved: () => void;
-  initialValues?: (Omit<VideoFormValues, "thumbnailUrl"> & { id: string; thumbnailUrl: string | null }) | null;
-}
+interface VideoFormModalProps { open: boolean; onClose: () => void; onSaved: () => void; initialValues?: (Omit<VideoFormValues, "thumbnailUrl" | "status"> & { id: string; thumbnailUrl: string | null; status: string; }) | null; }
 type Tab = "GENERAL" | "MEDIA" | "PUBLISHING";
 
 export function VideoFormModal({ open, onClose, onSaved, initialValues }: VideoFormModalProps) {
