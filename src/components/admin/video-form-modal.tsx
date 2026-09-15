@@ -38,8 +38,7 @@ export function VideoFormModal({ open, onClose, onSaved, initialValues }: VideoF
   const [errors, setErrors] = useState<Partial<Record<keyof VideoFormValues, string>>>({});
   const [saving, setSaving] = useState(false);
   const [uploadingThumb, setUploadingThumb] = useState(false);
-
-  useEffect(() => {
+  
   useEffect(() => {
     if (open) {
       let nextValues: VideoFormValues = EMPTY_VALUES;
