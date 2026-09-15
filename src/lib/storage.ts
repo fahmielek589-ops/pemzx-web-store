@@ -1,7 +1,7 @@
 import "server-only";
-import { writeFile, mkdir } from "node:fs/promises";
-import path from "node:path";
-import { randomUUID } from "node:crypto";
+import { writeFile, mkdir } from "fs/promises";
+import path from "path";
+import { randomUUID } from "crypto";
 import {
   ALLOWED_IMAGE_TYPES,
   ALLOWED_VIDEO_TYPES,
