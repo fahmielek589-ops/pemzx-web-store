@@ -32,9 +32,9 @@ interface VideoFormModalProps {
   open: boolean;
   onClose: () => void;
   onSaved: () => void;
-  initialValues?: (VideoFormValues & { id: string }) | null;
-}
-
+  initialValues?:
+    | (Omit<VideoFormValues, "thumbnailUrl"> & { id: string; thumbnailUrl: string | null })
+    | null;
 type Tab = "GENERAL" | "MEDIA" | "PUBLISHING";
 
 export function VideoFormModal({ open, onClose, onSaved, initialValues }: VideoFormModalProps) {
@@ -47,7 +47,19 @@ export function VideoFormModal({ open, onClose, onSaved, initialValues }: VideoF
 
   useEffect(() => {
     if (open) {
-      setValues(initialValues ?? EMPTY_VALUES);
+      setValues(
+        initialValues
+          ? {
+              title: initialValues.title,
+              description: initialValues.description,
+              videoUrl: initialValues.videoUrl,
+              thumbnailUrl: initialValues.thumbnailUrl ?? "",
+              category: initialValues.category,
+              status: initialValues.status,
+              featured: initialValues.featured,
+            }
+          : EMPTY_VALUES
+      );
       setErrors({});
       setTab("GENERAL");
     }
