@@ -12,7 +12,7 @@
 import "server-only";
 import argon2 from "argon2";
 import { cookies } from "next/headers";
-import { randomBytes, createHash } from "node:crypto";
+import { randomBytes, createHash } from "crypto";
 import { prisma } from "@/lib/db";
 
 export const SESSION_COOKIE_NAME = "pemzx_session";
