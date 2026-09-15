@@ -32,9 +32,8 @@ interface VideoFormModalProps {
   open: boolean;
   onClose: () => void;
   onSaved: () => void;
-  initialValues?:
-    | (Omit<VideoFormValues, "thumbnailUrl"> & { id: string; thumbnailUrl: string | null })
-    | null;
+  initialValues?: (Omit<VideoFormValues, "thumbnailUrl"> & { id: string; thumbnailUrl: string | null }) | null;
+}
 type Tab = "GENERAL" | "MEDIA" | "PUBLISHING";
 
 export function VideoFormModal({ open, onClose, onSaved, initialValues }: VideoFormModalProps) {
