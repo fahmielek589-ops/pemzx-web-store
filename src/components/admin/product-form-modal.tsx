@@ -48,8 +48,20 @@ interface ProductFormModalProps {
   open: boolean;
   onClose: () => void;
   onSaved: () => void;
-  initialValues?: (Partial<ProductFormValues> & { id: string; price: number; comparePrice: number | null; stock: number }) | null;
-}
+  initialValues?: {
+    id: string;
+    name: string;
+    slug: string;
+    description: string;
+    price: number;
+    comparePrice: number | null;
+    imageUrl: string | null;
+    category: string;
+    stock: number;
+    isDigital: boolean;
+    status: string;
+    featured: boolean;
+  } | null;
 
 type Tab = "GENERAL" | "MEDIA" | "PRICING" | "INVENTORY" | "PUBLISHING";
 const TABS: Tab[] = ["GENERAL", "MEDIA", "PRICING", "INVENTORY", "PUBLISHING"];
