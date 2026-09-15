@@ -76,7 +76,7 @@ export function ProductFormModal({ open, onClose, onSaved, initialValues }: Prod
           category: initialValues.category ?? "General",
           stock: String(initialValues.stock ?? 0),
           isDigital: initialValues.isDigital ?? false,
-          status: initialValues.status ?? "DRAFT",
+          status: initialValues.status === "PUBLISHED" || initialValues.status === "OUT_OF_STOCK" ? initialValues.status : "DRAFT",
           featured: initialValues.featured ?? false,
         });
         setSlugTouched(true);
