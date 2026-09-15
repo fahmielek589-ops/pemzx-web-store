@@ -40,20 +40,14 @@ export function VideoFormModal({ open, onClose, onSaved, initialValues }: VideoF
   const [uploadingThumb, setUploadingThumb] = useState(false);
 
   useEffect(() => {
+  useEffect(() => {
     if (open) {
-      setValues(
-        initialValues
-          ? {
-              title: initialValues.title,
-              description: initialValues.description,
-              videoUrl: initialValues.videoUrl,
-              thumbnailUrl: initialValues.thumbnailUrl ?? "",
-              category: initialValues.category,
-              status: initialValues.status,
-              featured: initialValues.featured,
-            }
-          : EMPTY_VALUES
-      );
+      let nextValues: VideoFormValues = EMPTY_VALUES;
+      if (initialValues) {
+        const status: "DRAFT" | "PUBLISHED" = initialValues.status === "PUBLISHED" ? "PUBLISHED" : "DRAFT";
+        nextValues = { title: initialValues.title, description: initialValues.description, videoUrl: initialValues.videoUrl, thumbnailUrl: initialValues.thumbnailUrl ?? "", category: initialValues.category, status, featured: initialValues.featured };
+      }
+      setValues(nextValues);
       setErrors({});
       setTab("GENERAL");
     }
